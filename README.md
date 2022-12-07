@@ -1,0 +1,2 @@
+# StudentManagement
+GUI APPLICATION USING PYTHON
