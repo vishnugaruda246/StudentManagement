@@ -26,8 +26,13 @@ class Management:
         self.database = cr.database
 
         # Left Frame
-        self.frame_1 = Frame(self.window, bg=self.color_1)
+        self.frame_1 = Frame(self.window)
         self.frame_1.place(x=0, y=0, width=540, relheight = 1)
+        photo = PhotoImage(file="vivid.png")
+        label = Label(self.frame_1, image=photo)
+        label.image = photo
+        label.place(x=0, y=0)
+    
 
         # Right Frame
         self.frame_2 = Frame(self.window, bg = self.color_2)
@@ -35,13 +40,16 @@ class Management:
 
         # Buttons
         self.add_bt = Button(self.frame_2, text='Add New', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=40,width=100)
-        self.view_bt = Button(self.frame_2, text='View Details', font=(self.font_1, 12), bd=2,  cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=100,width=100)
+        self.view_bt = Button(self.frame_2, text='View Details', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=100,width=100)
         self.update_bt = Button(self.frame_2, text='Update', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=160,width=100)
         self.delete_bt = Button(self.frame_2, text='Delete', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=220,width=100)
-        self.clear_bt = Button(self.frame_2, text='Clear', font=(self.font_1, 12), bd=2,  cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=280,width=100)
+        self.clear_bt = Button(self.frame_2, text='Clear', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=280,width=100)
         self.exit_bt = Button(self.frame_2, text='Exit', font=(self.font_1, 12), bd=2,  cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=340,width=100)
 
+        
+    
 
-root = Tk()
-obj = Management(root)
-root.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    obj = Management(root)
+    root.mainloop()
