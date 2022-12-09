@@ -75,7 +75,7 @@ class Management:
         self.gender = Label(self.frame_1, text="Gender", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=240)
         self.gender_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.gender_entry.place(x=40,y=270, width=200)
-        
+
         self.dob = Label(self.frame_1, text="Birthday", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=240)
         self.dob_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.dob_entry.place(x=300,y=270, width=200)
@@ -87,7 +87,42 @@ class Management:
         self.email = Label(self.frame_1, text="Email", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=310)
         self.email_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.email_entry.place(x=300,y=340, width=200)
+
+        self.submit_bt_1 = Button(self.frame_1, text='Submit', font=(self.font_1, 12), bd=2, command=self.Submit, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=200,y=389,width=100)
     
+    def Submit(self):
+        if self.name_entry.get() == "" or self.admission_entry.get() == "" or self.name_entry.get() == "" or self.course_entry.get() == "" or self.subject_entry.get() == "" or self.year_entry.get() == "" or self.age_entry.get() == "" or self.gender_entry.get() == "" or self.dob_entry.get() == "" or self.contact_entry.get() == "" or self.email_entry.get() == "":
+            messagebox.showerror("Error!","Sorry!, All fields are required",parent=self.window)
+        else:
+            try:
+                connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
+                curs = connection.cursor()
+                curs.execute("select * from student_register where contact=%s", self.admission_entry.get())
+                row=curs.fetchone()
+
+                if row!=None:
+                    messagebox.showerror("Error!","The contact number is already exists, please try again with another number",parent=self.window)
+                else:
+                    curs.execute("insert into student (admission_no,name,course,subject,year,age,gender,dob,contact,email) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                                        (
+                                            self.admission_entry.get(),
+                                            self.name_entry.get(),
+                                            self.course_entry.get(),
+                                            self.subject_entry.get(),
+                                            self.year_entry.get(),
+                                            self.age_entry.get(),
+                                            self.gender_entry.get(),
+                                            self.dob_entry.get(),
+                                            self.contact_entry.get(),
+                                            self.email_entry.get()  
+                                        ))
+                    connection.commit()
+                    connection.close()
+                    messagebox.showinfo('Done!', "The data has been submitted")
+                    self.reset_fields()
+            except Exception as e:
+                messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
+
 
 if __name__ == "__main__":
     root = Tk()
