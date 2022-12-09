@@ -31,6 +31,7 @@ class Management:
         photo = PhotoImage(file="vivid.png")
         label = Label(self.frame_1, image=photo)
         label.image = photo
+        label.pack()
         label.place(x=0, y=0)
     
 
