@@ -28,11 +28,8 @@ class Management:
         # Left Frame
         self.frame_1 = Frame(self.window)
         self.frame_1.place(x=0, y=0, width=540, relheight = 1)
-        photo = PhotoImage(file="vivid.png")
-        label = Label(self.frame_1, image=photo)
-        label.image = photo
-        label.pack()
-        label.place(x=0, y=0)
+        self.photo = PhotoImage(file="vivid.png")
+        self.bglabel = Label(self.frame_1, i=self.photo)
     
 
         # Right Frame
@@ -44,8 +41,8 @@ class Management:
         self.view_bt = Button(self.frame_2, text='View Details', font=(self.font_1, 12), bd=2,command = self.GetAdmission_View, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=100,width=100)
         self.update_bt = Button(self.frame_2, text='Update', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=160,width=100)
         self.delete_bt = Button(self.frame_2, text='Delete', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=220,width=100)
-        self.clear_bt = Button(self.frame_2, text='Clear', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=280,width=100)
-        self.exit_bt = Button(self.frame_2, text='Exit', font=(self.font_1, 12), bd=2,  cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=340,width=100)
+        self.clear_bt = Button(self.frame_2, text='Clear', font=(self.font_1, 12), bd=2, command=self.ClearScreen ,cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=280,width=100)
+        self.exit_bt = Button(self.frame_2, text='Exit', font=(self.font_1, 12), bd=2, command=self.Exit ,cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=340,width=100)
 
     def AddStudent(self):
         self.admission = Label(self.frame_1,text='Admission number',font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=30)
@@ -89,6 +86,7 @@ class Management:
         self.email_entry.place(x=300,y=340, width=200)
 
         self.submit_bt_1 = Button(self.frame_1, text='Submit', font=(self.font_1, 12), bd=2, command=self.Submit, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=200,y=389,width=100)
+   
     def GetAdmission_View(self):
         self.ClearScreen()
         self.getInfo = Label(self.frame_1, text="Enter Admission Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
@@ -105,7 +103,7 @@ class Management:
         self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.CheckContact_Update, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
 
     '''Get the contact number to delete a student record'''
-    def GetContact_Delete(self):
+    def GetAdmission_Delete(self):
         self.ClearScreen()
 
         self.getInfo = Label(self.frame_1, text="Enter Admission Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
@@ -146,7 +144,7 @@ class Management:
     the function calls the 'GetUpdateDetails' function to get the new data to perform
     update operation.
     '''
-    def CheckContact_Update(self):
+    def CheckAdmission_Update(self):
         if self.getInfo_entry.get() == "":
             messagebox.showerror("Error!", "Please enter your contact number",parent=self.window)
         else:
