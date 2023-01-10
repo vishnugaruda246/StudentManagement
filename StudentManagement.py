@@ -28,8 +28,6 @@ class Management:
         # Left Frame
         self.frame_1 = Frame(self.window)
         self.frame_1.place(x=0, y=0, width=540, relheight = 1)
-        self.photo = PhotoImage(file="vivid.png")
-        self.bglabel = Label(self.frame_1, i=self.photo)
     
 
         # Right Frame
@@ -186,28 +184,6 @@ class Management:
         self.getInfo_entry.place(x=163, y=110, width=200, height=30)
         self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.CheckAdmission_Update, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
 
-    '''Get the contact number to delete a student record'''
-    def GetAdmission_Delete(self):
-        self.ClearScreen()
-
-        self.getInfo = Label(self.frame_1, text="Enter Admission Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
-        self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
-        self.getInfo_entry.place(x=163, y=110, width=200, height=30)
-        self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.DeleteData, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
-
-
-    def ClearScreen(self):
-        for widget in self.frame_1.winfo_children():
-            widget.destroy()    
-    
-    def Exit(self):
-        self.window.destroy()
-
-    '''
-    Checks whether the contact number is available or not. If available, 
-    the function calls the 'GetUpdateDetails' function to get the new data to perform
-    update operation.
-    '''
     def CheckAdmission_Update(self):
         if self.getInfo_entry.get() == "":
             messagebox.showerror("Error!", "Please enter your Admission number",parent=self.window)
@@ -226,6 +202,27 @@ class Management:
             except Exception as e:
                 messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
 
+
+    '''Get the contact number to delete a student record'''
+    def GetAdmission_Delete(self):
+        self.ClearScreen()
+
+        self.getInfo = Label(self.frame_1, text="Enter Admission Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
+        self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
+        self.getInfo_entry.place(x=163, y=110, width=200, height=30)
+        self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.DeleteData, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
+
+    
+
+    def ClearScreen(self):
+        for widget in self.frame_1.winfo_children():
+            widget.destroy()    
+    
+    def Exit(self):
+        self.window.destroy()
+
+
+
     
     '''Clears a student record'''
     def DeleteData(self):
@@ -241,7 +238,7 @@ class Management:
                 if row == None:
                     messagebox.showerror("Error!","Contact number doesn't exists",parent=self.window)
                 else:
-                    curs.execute("delete from student_register where contact=%s", self.getInfo_entry.get())
+                    curs.execute("delete from student_register where admi=%s", self.getInfo_entry.get())
                     connection.commit()
                     messagebox.showinfo('Done!', "The data has been deleted")
                     connection.close()
@@ -342,13 +339,13 @@ class Management:
     
     def reset_fields(self):
         self.name_entry.delete(0, END)
-        self.surname_entry.delete(0, END)
+        self.admission_entry.delete(0, END)
         self.course_entry.delete(0, END)
         self.subject_entry.delete(0, END)
         self.year_entry.delete(0, END)
         self.age_entry.delete(0, END)
         self.gender_entry.delete(0, END)
-        self.birth_entry.delete(0, END)
+        self.dob_entry .delete(0, END)
         self.contact_entry.delete(0, END)
         self.email_entry.delete(0, END)
 
