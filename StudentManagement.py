@@ -120,7 +120,34 @@ class Management:
             except Exception as e:
                 messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
     
-   
+#displaying student details
+    def GetContact_View(self):
+        self.ClearScreen()
+
+        self.getInfo = Label(self.frame_1, text="Enter Phone Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
+        self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
+        self.getInfo_entry.place(x=163, y=110, width=200, height=30)
+        self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.CheckContact_View, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
+            
+    def CheckContact_View(self):
+        if self.getInfo_entry.get() == "":
+            messagebox.showerror("Error!", "Please enter your contact number",parent=self.window)
+        else:
+            try:
+                connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
+                curs = connection.cursor()
+                curs.execute("select * from student_register where contact=%s", self.getInfo_entry.get())
+                row=curs.fetchone()
+                
+                if row == None:
+                    messagebox.showerror("Error!","Contact number doesn't exists",parent=self.window)
+                else:
+                    self.ShowDetails(row)
+                    connection.close()
+            except Exception as e:
+                messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
+
+
     def reset_fields(self):
         self.name_entry.delete(0, END)
         self.admission_entry.delete(0, END)
