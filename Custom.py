@@ -1,4 +1,4 @@
-color_1 = "deep sky blue"
+color_1 = "tomato"
 color_2 = "gray95"
 color_3 = "black"
 color_4 = "white"

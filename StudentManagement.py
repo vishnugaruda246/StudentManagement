@@ -26,7 +26,7 @@ class Management:
         self.database = cr.database
 
         # Left Frame
-        self.frame_1 = Frame(self.window)
+        self.frame_1 = Frame(self.window,bg=self.color_1)
         self.frame_1.place(x=0, y=0, width=540, relheight = 1)
     
 
@@ -38,7 +38,7 @@ class Management:
         self.add_bt = Button(self.frame_2, text='Add New', font=(self.font_1, 12), bd=2,command=self.AddStudent, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=40,width=100)
         self.view_bt = Button(self.frame_2, text='View Details', font=(self.font_1, 12), bd=2,command = self.GetAdmission_View, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=100,width=100)
         self.update_bt = Button(self.frame_2, text='Update', font=(self.font_1, 12), bd=2, command=self.GetAdmission_Update, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=160,width=100)
-        self.delete_bt = Button(self.frame_2, text='Delete', font=(self.font_1, 12), bd=2, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=220,width=100)
+        self.delete_bt = Button(self.frame_2, text='Delete', font=(self.font_1, 12), bd=2, command=self.GetAdmission_Delete, bg=self.color_2,fg=self.color_3).place(x=68,y=220,width=100)
         self.clear_bt = Button(self.frame_2, text='Clear', font=(self.font_1, 12), bd=2, command=self.ClearScreen ,cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=280,width=100)
         self.exit_bt = Button(self.frame_2, text='Exit', font=(self.font_1, 12), bd=2, command=self.Exit ,cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=68,y=340,width=100)
 
@@ -94,7 +94,7 @@ class Management:
             try:
                 connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
                 curs = connection.cursor()
-                curs.execute("select * from student_register where contact=%s", self.admission_entry.get())
+                curs.execute("select * from student where admission_no=%s", self.admission_entry.get())
                 row=curs.fetchone()
 
                 if row!=None:
@@ -121,15 +121,73 @@ class Management:
                 messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
     
 #displaying student details
-    def GetContact_View(self):
+    def GetAdmission_View(self):
         self.ClearScreen()
 
         self.getInfo = Label(self.frame_1, text="Enter Phone Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
         self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
         self.getInfo_entry.place(x=163, y=110, width=200, height=30)
-        self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.CheckContact_View, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
+        self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.CheckAdmission_View, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
             
-    def CheckContact_View(self):
+    def CheckAdmission_View(self):
+        if self.getInfo_entry.get() == "":
+            messagebox.showerror("Error!", "Please enter your contact number",parent=self.window)
+        else:
+            try:
+                connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
+                curs = connection.cursor()
+                curs.execute("select * from student_register where admission_no=%s", self.getInfo_entry.get())
+                row=curs.fetchone()
+                
+                if row == None:
+                    messagebox.showerror("Error!","Admission number doesn't exists",parent=self.window)
+                else:
+                    self.ShowDetails(row)
+                    connection.close()
+            except Exception as e:
+                messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
+   
+    def ShowDetails(self, row):
+        self.ClearScreen()
+        admission = Label(self.frame_1, text="Admission number", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=30)
+        admission_data = Label(self.frame_1, text=row[0], font=(self.font_1, 10)).place(x=40, y=60)
+
+        name = Label(self.frame_1, text="Full Name", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=30)
+        name_data = Label(self.frame_1, text=row[1], font=(self.font_1, 10)).place(x=300, y=60)
+
+        course = Label(self.frame_1, text="Course", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=100)
+        course_data = Label(self.frame_1, text=row[2], font=(self.font_1, 10)).place(x=40, y=130)
+
+        subject = Label(self.frame_1, text="Subject", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=100)
+        subject_data = Label(self.frame_1, text=row[3], font=(self.font_1, 10)).place(x=300, y=130)
+
+        year = Label(self.frame_1, text="Year", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=170)
+        year_data = Label(self.frame_1, text=row[4], font=(self.font_1, 10)).place(x=40, y=200)
+
+        age = Label(self.frame_1, text="Age", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=170)
+        age_data = Label(self.frame_1, text=row[5], font=(self.font_1, 10)).place(x=300, y=200)
+
+        gender = Label(self.frame_1, text="Gender", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=240)
+        gender_data = Label(self.frame_1, text=row[6], font=(self.font_1, 10)).place(x=40, y=270)
+
+        dob = Label(self.frame_1, text="Date of birth", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=240)
+        dob_data = Label(self.frame_1, text=row[7], font=(self.font_1, 10)).place(x=300, y=270)
+
+        contact = Label(self.frame_1, text="Contact", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=310)
+        contact_data = Label(self.frame_1, text=row[8], font=(self.font_1, 10)).place(x=40, y=340)
+
+        email = Label(self.frame_1, text="Email", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=310)
+        email_data = Label(self.frame_1, text=row[9], font=(self.font_1, 10)).place(x=300, y=340)
+
+    def GetAdmission_Update(self):
+        self.ClearScreen()
+
+        self.getInfo = Label(self.frame_1, text="Enter Phone Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
+        self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
+        self.getInfo_entry.place(x=163, y=110, width=200, height=30)
+        self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.CheckContact_Update, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
+
+    def CheckContact_Update(self):
         if self.getInfo_entry.get() == "":
             messagebox.showerror("Error!", "Please enter your contact number",parent=self.window)
         else:
@@ -142,12 +200,103 @@ class Management:
                 if row == None:
                     messagebox.showerror("Error!","Contact number doesn't exists",parent=self.window)
                 else:
-                    self.ShowDetails(row)
+                    self.GetUpdateDetails(row)
                     connection.close()
             except Exception as e:
                 messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
 
+    def GetAdmission_Delete(self):
+        self.ClearScreen()
 
+        self.getInfo = Label(self.frame_1, text="Enter Admission Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
+        self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
+        self.getInfo_entry.place(x=163, y=110, width=200, height=30)
+        self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.DeleteData, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
+    
+    '''Clears a student record'''
+    def DeleteData(self):
+        if self.getInfo_entry.get() == "":
+            messagebox.showerror("Error!", "Please enter your Admission number",parent=self.window)
+        else:
+            try:
+                connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
+                curs = connection.cursor()
+                curs.execute("select * from student where admission_no=%s", self.getInfo_entry.get())
+                row=curs.fetchone()
+                
+                if row == None:
+                    messagebox.showerror("Error!","Admission number doesn't exists",parent=self.window)
+                else:
+                    curs.execute("delete from student where admission_no=%s", self.getInfo_entry.get())
+                    connection.commit()
+                    messagebox.showinfo('Done!', "The data has been deleted")
+                    connection.close()
+                    self.ClearScreen()
+            except Exception as e:
+                messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
+
+
+    '''Gets the data that the user wants to update to perform the update operation'''
+    def GetUpdateDetails(self, row):
+        self.ClearScreen()
+
+        self.name = Label(self.frame_1, text="First Name", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=30)
+        self.name_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.name_entry.insert(0, row[0])
+        self.name_entry.place(x=40,y=60, width=200)
+
+        self.surname = Label(self.frame_1, text="Last Name", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=30)
+        self.surname_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.surname_entry.insert(0, row[1])
+        self.surname_entry.place(x=300,y=60, width=200)
+
+        self.course = Label(self.frame_1, text="Course", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=100)
+        self.course_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.course_entry.insert(0, row[2])
+        self.course_entry.place(x=40,y=130, width=200)
+
+        self.subject = Label(self.frame_1, text="Subject", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=100)
+        self.subject_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.subject_entry.insert(0, row[3])
+        self.subject_entry.place(x=300,y=130, width=200)
+
+        self.year = Label(self.frame_1, text="Year", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=170)
+        self.year_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.year_entry.insert(0, row[4])
+        self.year_entry.place(x=40,y=200, width=200)
+
+        self.age = Label(self.frame_1, text="Age", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=170)
+        self.age_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.age_entry.insert(0, row[5])
+        self.age_entry.place(x=300,y=200, width=200)
+
+        self.gender = Label(self.frame_1, text="Gender", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=240)
+        self.gender_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.gender_entry.insert(0, row[6])
+        self.gender_entry.place(x=40,y=270, width=200)
+
+        self.birth = Label(self.frame_1, text="Birthday", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=240)
+        self.birth_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.birth_entry.insert(0, row[7])
+        self.birth_entry.place(x=300,y=270, width=200)
+
+
+        self.email = Label(self.frame_1, text="Email", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=310)
+        self.email_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
+        self.email_entry.insert(0, row[9])
+        self.email_entry.place(x=300,y=340, width=200)
+
+        self.submit_bt_1 = Button(self.frame_1, text='Submit', font=(self.font_1, 12), bd=2, command=partial(self.UpdateDetails, row), cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=160,y=389,width=100)
+        self.cancel_bt = Button(self.frame_1, text='Cancel', font=(self.font_1, 12), bd=2, command=self.ClearScreen, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=280,y=389,width=100)
+        
+    def ClearScreen(self):
+        for widget in self.frame_1.winfo_children():
+            widget.destroy()
+
+    '''Exit window'''
+    def Exit(self):
+        self.window.destroy()
+        
     def reset_fields(self):
         self.name_entry.delete(0, END)
         self.admission_entry.delete(0, END)
