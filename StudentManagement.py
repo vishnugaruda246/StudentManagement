@@ -149,35 +149,35 @@ class Management:
    
     def ShowDetails(self, row):
         self.ClearScreen()
-        admission = Label(self.frame_1, text="Admission number", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=30)
-        admission_data = Label(self.frame_1, text=row[0], font=(self.font_1, 10)).place(x=40, y=60)
+        admission = Label(self.frame_1, text="Admission number", font=(self.font_2, 15, "bold")).place(x=40,y=30)
+        admission_data = Label(self.frame_1, text=row[0], font=(self.font_1, 13)).place(x=40, y=60)
 
-        name = Label(self.frame_1, text="Full Name", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=30)
-        name_data = Label(self.frame_1, text=row[1], font=(self.font_1, 10)).place(x=300, y=60)
+        name = Label(self.frame_1, text="Full Name", font=(self.font_2, 15, "bold")).place(x=300,y=30)
+        name_data = Label(self.frame_1, text=row[1], font=(self.font_1, 13)).place(x=300, y=60)
 
-        course = Label(self.frame_1, text="Course", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=100)
-        course_data = Label(self.frame_1, text=row[2], font=(self.font_1, 10)).place(x=40, y=130)
+        course = Label(self.frame_1, text="Course", font=(self.font_2, 15, "bold")).place(x=40,y=100)
+        course_data = Label(self.frame_1, text=row[2], font=(self.font_1, 13)).place(x=40, y=130)
 
-        subject = Label(self.frame_1, text="Subject", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=100)
-        subject_data = Label(self.frame_1, text=row[3], font=(self.font_1, 10)).place(x=300, y=130)
+        subject = Label(self.frame_1, text="Subject", font=(self.font_2, 15, "bold")).place(x=300,y=100)
+        subject_data = Label(self.frame_1, text=row[3], font=(self.font_1, 13)).place(x=300, y=130)
 
-        year = Label(self.frame_1, text="Year", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=170)
-        year_data = Label(self.frame_1, text=row[4], font=(self.font_1, 10)).place(x=40, y=200)
+        year = Label(self.frame_1, text="Year", font=(self.font_2, 15, "bold")).place(x=40,y=170)
+        year_data = Label(self.frame_1, text=row[4], font=(self.font_1, 13)).place(x=40, y=200)
 
-        age = Label(self.frame_1, text="Age", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=170)
-        age_data = Label(self.frame_1, text=row[5], font=(self.font_1, 10)).place(x=300, y=200)
+        age = Label(self.frame_1, text="Age", font=(self.font_2, 15, "bold")).place(x=300,y=170)
+        age_data = Label(self.frame_1, text=row[5], font=(self.font_1, 13)).place(x=300, y=200)
 
-        gender = Label(self.frame_1, text="Gender", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=240)
-        gender_data = Label(self.frame_1, text=row[6], font=(self.font_1, 10)).place(x=40, y=270)
+        gender = Label(self.frame_1, text="Gender", font=(self.font_2, 15, "bold")).place(x=40,y=240)
+        gender_data = Label(self.frame_1, text=row[6], font=(self.font_1, 13)).place(x=40, y=270)
 
-        dob = Label(self.frame_1, text="Date of birth", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=240)
-        dob_data = Label(self.frame_1, text=row[7], font=(self.font_1, 10)).place(x=300, y=270)
+        dob = Label(self.frame_1, text="Date of birth", font=(self.font_2, 15, "bold")).place(x=300,y=240)
+        dob_data = Label(self.frame_1, text=row[7], font=(self.font_1, 13)).place(x=300, y=270)
 
-        contact = Label(self.frame_1, text="Contact", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=310)
-        contact_data = Label(self.frame_1, text=row[8], font=(self.font_1, 10)).place(x=40, y=340)
+        contact = Label(self.frame_1, text="Contact", font=(self.font_2, 15, "bold")).place(x=40,y=310)
+        contact_data = Label(self.frame_1, text=row[8], font=(self.font_1, 13)).place(x=40, y=340)
 
-        email = Label(self.frame_1, text="Email", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=310)
-        email_data = Label(self.frame_1, text=row[9], font=(self.font_1, 10)).place(x=300, y=340)
+        email = Label(self.frame_1, text="Email", font=(self.font_2, 15, "bold")).place(x=300,y=310)
+        email_data = Label(self.frame_1, text=row[9], font=(self.font_1, 13)).place(x=300, y=340)
 
 #update
     def GetAdmission_Update(self):
@@ -209,51 +209,50 @@ class Management:
     def GetUpdateDetails(self, row):
         self.ClearScreen()
 
-        admission = Label(self.frame_1, text="Admission", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=30)
+        admission = Label(self.frame_1, text="Admission", font=(self.font_2, 15, "bold")).place(x=40,y=30)
         admission_data = Label(self.frame_1, text=row[0], font=(self.font_1, 10)).place(x=40,y=60)
     
-
-        self.name = Label(self.frame_1, text="Full Name", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=30)
+        self.name = Label(self.frame_1, text="Full Name", font=(self.font_2, 15, "bold")).place(x=300,y=30)
         self.name_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.name_entry.insert(0, row[1])
         self.name_entry.place(x=300,y=60, width=200)
 
-        self.course = Label(self.frame_1, text="Course", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=100)
+        self.course = Label(self.frame_1, text="Course", font=(self.font_2, 15, "bold")).place(x=40,y=100)
         self.course_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.course_entry.insert(0, row[2])
         self.course_entry.place(x=40,y=130, width=200)
 
-        self.subject = Label(self.frame_1, text="Subject", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=100)
+        self.subject = Label(self.frame_1, text="Subject", font=(self.font_2, 15, "bold")).place(x=300,y=100)
         self.subject_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.subject_entry.insert(0, row[3])
         self.subject_entry.place(x=300,y=130, width=200)
 
-        self.year = Label(self.frame_1, text="Year", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=170)
+        self.year = Label(self.frame_1, text="Year", font=(self.font_2, 15, "bold")).place(x=40,y=170)
         self.year_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.year_entry.insert(0, row[4])
         self.year_entry.place(x=40,y=200, width=200)
 
-        self.age = Label(self.frame_1, text="Age", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=170)
+        self.age = Label(self.frame_1, text="Age", font=(self.font_2, 15, "bold")).place(x=300,y=170)
         self.age_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.age_entry.insert(0, row[5])
         self.age_entry.place(x=300,y=200, width=200)
 
-        self.gender = Label(self.frame_1, text="Gender", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40,y=240)
+        self.gender = Label(self.frame_1, text="Gender", font=(self.font_2, 15, "bold")).place(x=40,y=240)
         self.gender_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.gender_entry.insert(0, row[6])
         self.gender_entry.place(x=40,y=270, width=200)
 
-        self.dob = Label(self.frame_1, text="Birthday", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=240)
+        self.dob = Label(self.frame_1, text="Birthday", font=(self.font_2, 15, "bold")).place(x=300,y=240)
         self.dob_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.dob_entry.insert(0, row[7])
         self.dob_entry.place(x=300,y=270, width=200)
 
-        self.contact = Label(self.frame_1, text="Contact", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=40, y=310)
+        self.contact = Label(self.frame_1, text="Contact", font=(self.font_2, 15, "bold")).place(x=40, y=310)
         self.contact_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.contact_entry.insert(0, row[8])
         self.contact_entry.place(x=40,y=340, width=200)
        
-        self.email = Label(self.frame_1, text="Email", font=(self.font_2, 15, "bold"), bg=self.color_1).place(x=300,y=310)
+        self.email = Label(self.frame_1, text="Email", font=(self.font_2, 15, "bold")).place(x=300,y=310)
         self.email_entry = Entry(self.frame_1, bg=self.color_4, fg=self.color_3)
         self.email_entry.insert(0, row[9])
         self.email_entry.place(x=300,y=340, width=200)
@@ -296,7 +295,6 @@ class Management:
 #delete   
     def GetAdmission_Delete(self):
         self.ClearScreen()
-
         self.getInfo = Label(self.frame_1, text="Enter Admission Number", font=(self.font_2, 18, "bold")).place(x=140,y=70)
         self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
         self.getInfo_entry.place(x=163, y=110, width=200, height=30)
@@ -310,13 +308,13 @@ class Management:
             try:
                 connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
                 curs = connection.cursor()
-                curs.execute("select * from student_register where admission_no=%s", self.getInfo_entry.get())
+                curs.execute("select * from student where admission_no=%s", self.getInfo_entry.get())
                 row=curs.fetchone()
                 
                 if row == None:
                     messagebox.showerror("Error!","Contact number doesn't exists",parent=self.window)
                 else:
-                    curs.execute("delete from student_register where admission_no=%s", self.getInfo_entry.get())
+                    curs.execute("delete from student where admission_no=%s", self.getInfo_entry.get())
                     connection.commit()
                     messagebox.showinfo('Done!', "The data has been deleted")
                     connection.close()
