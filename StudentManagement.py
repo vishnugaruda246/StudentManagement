@@ -26,7 +26,7 @@ class Management:
         self.database = cr.database
 
         # Left Frame
-        self.frame_1 = Frame(self.window,bg=self.color_1)
+        self.frame_1 = Frame(self.window)
         self.frame_1.place(x=0, y=0, width=540, relheight = 1)
     
 
@@ -124,19 +124,19 @@ class Management:
     def GetAdmission_View(self):
         self.ClearScreen()
 
-        self.getInfo = Label(self.frame_1, text="Enter Phone Number", font=(self.font_2, 18, "bold"), bg=self.color_1).place(x=140,y=70)
+        self.getInfo = Label(self.frame_1, text="Enter Admission Number", font=(self.font_2, 18, "bold")).place(x=140,y=70)
         self.getInfo_entry = Entry(self.frame_1, font=(self.font_1, 12), bg=self.color_4, fg=self.color_3)
         self.getInfo_entry.place(x=163, y=110, width=200, height=30)
         self.submit_bt_2 = Button(self.frame_1, text='Submit', font=(self.font_1, 10), bd=2, command=self.CheckAdmission_View, cursor="hand2", bg=self.color_2,fg=self.color_3).place(x=220,y=150,width=80)
             
     def CheckAdmission_View(self):
         if self.getInfo_entry.get() == "":
-            messagebox.showerror("Error!", "Please enter your contact number",parent=self.window)
+            messagebox.showerror("Error!", "Please enter your Admission number",parent=self.window)
         else:
             try:
                 connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
                 curs = connection.cursor()
-                curs.execute("select * from student_register where admission_no=%s", self.getInfo_entry.get())
+                curs.execute("select * from student where admission_no=%s", self.getInfo_entry.get())
                 row=curs.fetchone()
                 
                 if row == None:
@@ -221,13 +221,13 @@ class Management:
             try:
                 connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
                 curs = connection.cursor()
-                curs.execute("select * from student where admission_no=%s", self.getInfo_entry.get())
+                curs.execute("select * from student_register where admission_no=%s", self.getInfo_entry.get())
                 row=curs.fetchone()
                 
                 if row == None:
-                    messagebox.showerror("Error!","Admission number doesn't exists",parent=self.window)
+                    messagebox.showerror("Error!","Contact number doesn't exists",parent=self.window)
                 else:
-                    curs.execute("delete from student where admission_no=%s", self.getInfo_entry.get())
+                    curs.execute("delete from student_register where admission_no=%s", self.getInfo_entry.get())
                     connection.commit()
                     messagebox.showinfo('Done!', "The data has been deleted")
                     connection.close()
